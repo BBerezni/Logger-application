@@ -5,7 +5,6 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.UUID;
 
 @Data

@@ -1,4 +1,4 @@
-package com.example.Logger.application;
+package com.example.Logger.application.Security;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
