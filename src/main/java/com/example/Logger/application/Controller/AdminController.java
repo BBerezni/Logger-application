@@ -13,9 +13,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -59,5 +57,21 @@ public class AdminController {
         client.setId(UUID.randomUUID());
         clientRepository.save(client);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+    @PatchMapping("/api/clients/{clientId}/reset-password")
+    public ResponseEntity<Void> changePassword(@RequestHeader("adminId") UUID idAdmin, @RequestBody Client client){
+        if(idAdmin.equals(client.getId()) && !client.getUserAuth().equals(UserAuth.ADMIN)){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        } else if (!idAdmin.equals(client.getId()) && client.getUserAuth().equals(UserAuth.ADMIN)){
+            return ResponseEntity.status((HttpStatus.FORBIDDEN)).body((null));
+        }
+        client.getId();
+        client.setUserAuth(UserAuth.CLIENT);
+        client.getUsername();
+        client.getEmail();
+        String psw = client.getPassword();
+        client.setPassword(psw);
+        clientRepository.save(client);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 }

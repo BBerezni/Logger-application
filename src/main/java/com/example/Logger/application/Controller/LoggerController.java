@@ -33,26 +33,23 @@ public class LoggerController {
 
     @GetMapping("/api/logs/all")
     public List<Logger> findAll() {
-        return loggerService.findAll();
+        return loggerRepository.findAll();
     }
 
     @PostMapping("/api/logs/create")
     public ResponseEntity<Void> createLog(@RequestHeader("clientId") UUID id, @RequestBody Logger logger){
 
-        if(logger.getLogType().getValue() != logType.ERROR.getValue() ||
-                logger.getLogType().getValue() != logType.WARNING.getValue() ||
+        if(logger.getLogType().getValue() != logType.ERROR.getValue() &&
+                logger.getLogType().getValue() != logType.WARNING.getValue() &&
                 logger.getLogType().getValue() != logType.INFO.getValue()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } else if(logger.getMessage().length() > 1024){
             return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(null);
+        } else if (clientRepository.findId(id) == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-//        else if (id.equals())
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-
         logger.setCreatedDate(LocalDate.now());
         loggerRepository.save(logger);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
-
-
 }

@@ -49,23 +49,14 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
-    // RADI!!!
-//    @PostMapping("/api/clients/login")
-//    public ResponseEntity<?> loginClient(@RequestBody String email, String password){
-//        if(clientRepository.existsByEmail(email) != 0 || clientRepository.existsByPassword(password) != 0){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-//        }
-//        var token = UUID.randomUUID();
-//        return ResponseEntity.status(HttpStatus.OK).body(token);
-//    }
-
     @PostMapping("/api/clients/login")
     public ResponseEntity<?> loginClient(@RequestBody Client client){
-        if(clientRepository.existsByEmail(client.getEmail()) == 0 || clientRepository.existsByPassword(client.getPassword()) == 0){
+        if(clientRepository.existsByEmail(client.getEmail()) == 0 && clientRepository.existsByPassword(client.getPassword()) == 0){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        UUID token = UUID.fromString(clientRepository.findIdByEmail(client.getEmail()));
-        return ResponseEntity.status(HttpStatus.OK).body("token: ");
+//        String ids = clientRepository.findIdByEmail(client.getEmail());
+        String token = client.getUsername()+"token";
+        return ResponseEntity.status(HttpStatus.OK).body("token: " + token);
     }
 
 }

@@ -8,15 +8,11 @@ import java.util.List;
 
 @Service
 public class LoggerService {
-
     private final LoggerRepository loggerRepository;
-
     public LoggerService(LoggerRepository loggerRepository) {
         this.loggerRepository = loggerRepository;
     }
-
     public List<Logger> findAll() {
         return loggerRepository.findAll();
     }
-
 }

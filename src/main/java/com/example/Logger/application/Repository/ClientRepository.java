@@ -15,22 +15,22 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
 
     List<Client> findAll();
 
-    @Query(value = "SELECT COUNT(*) FROM Logger WHERE username=:username", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM Users WHERE username=:username", nativeQuery = true)
     Integer existsByUsername(@Param("username") String username);
 
-    @Query(value = "SELECT COUNT(*) FROM Logger WHERE email=:email", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM Users WHERE email=:email", nativeQuery = true)
     Integer existsByEmail(@Param("email") String email);
 
-    @Query(value = "SELECT COUNT(*) FROM Logger WHERE password=:password", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM Users WHERE password=:password", nativeQuery = true)
     Integer existsByPassword(@Param("password") String password);
 
+    @Query(value = "SELECT COUNT(*) FROM Users WHERE id=:id", nativeQuery = true)
+    Integer findId(@Param("id") UUID id);
     String findByUsername(String username);
     String findByPassword(String password);
     String findByEmail(String email);
-
     String findIdByEmail(String email);
     Optional<Client> findById(UUID uuid);
-
-//    UUID findIdByEmail(String email)
-
+    @Query(value = "SELECT * FROM Users WHERE id=:id", nativeQuery = true)
+    Client findClientById(@Param("id") UUID id);;
 }

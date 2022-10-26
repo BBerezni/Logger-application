@@ -1,9 +1,9 @@
 package com.example.Logger.application.Model;
 
 public enum logType {
-    ERROR(1),
-    WARNING(2),
-    INFO(3);
+    ERROR(0),
+    WARNING(1),
+    INFO(2);
 
     public final int value;
     private logType(int value) {
