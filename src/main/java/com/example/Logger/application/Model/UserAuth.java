@@ -1,12 +1,12 @@
 package com.example.Logger.application.Model;
 
-public enum logType {
-    ERROR(1),
-    WARNING(2),
-    INFO(3);
+public enum UserAuth {
+    CLIENT(1),
+    ADMIN(2);
 
     public final int value;
-    private logType(int value) {
+
+    private UserAuth(int value) {
         this.value = value;
     }
     public int getValue(){

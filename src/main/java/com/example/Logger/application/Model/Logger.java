@@ -3,7 +3,7 @@ package com.example.Logger.application.Model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -15,5 +15,6 @@ public class Logger {
     private int id;
     private String message;
     private logType logType;
-    private Date createdDate;
+    @Column(name = "date")
+    private LocalDate createdDate;
 }

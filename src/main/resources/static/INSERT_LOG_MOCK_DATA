@@ -1,0 +1,11 @@
+insert into Log (id, message, logType, date) values (12, 'nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo', 1, '2022-01-08');
+insert into Log (id, message, logType, date) values (13, 'vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit', 2, '2022-06-08');
+insert into Log (id, message, logType, date) values (14, 'nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus', 3, '2022-09-10');
+insert into Log (id, message, logType, date) values (15, 'dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien', 1, '2021-11-26');
+insert into Log (id, message, logType, date) values (16, 'mi sit amet lobortis sapien sapien non mi integer ac', 2, '2022-01-11');
+insert into Log (id, message, logType, date) values (17, 'neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh', 3, '2021-11-19');
+insert into Log (id, message, logType, date) values (18, 'natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque', 3, '2022-05-26');
+insert into Log (id, message, logType, date) values (19, 'arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus', 3, '2022-08-02');
+insert into Log (id, message, logType, date) values (20, 'nec condimentum neque sapien placerat ante nulla justo aliquam quis', 1, '2022-04-18');
+insert into Log (id, message, logType, date) values (21, 'aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit', 3, '2022-06-07');
+

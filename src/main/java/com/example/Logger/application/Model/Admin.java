@@ -11,8 +11,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "Logger")
 @Validated
-
-public class Client {
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +23,4 @@ public class Client {
     @JsonProperty("email")
     public String email;
     private UserAuth userAuth;
-
-
 }
