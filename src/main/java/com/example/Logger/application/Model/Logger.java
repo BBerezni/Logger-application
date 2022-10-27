@@ -14,7 +14,7 @@ public class Logger {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String message;
-    private logType logType;
+    private LogType logType;
     @Column(name = "date")
     private LocalDate createdDate;
 }

@@ -33,7 +33,7 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     Integer getClient(@Param("id") UUID id);
 
     @Query(value = "SELECT id,username,email,logCount FROM Users WHERE userAuth=0", nativeQuery = true)
-    List<Object> findAllClients();
+    List<Client> findClients();
 
     @Query(value = "SELECT COUNT(*) FROM Users WHERE userAuth=1 AND id=:id", nativeQuery = true)
     Integer getAdmin(@Param("id") UUID id);

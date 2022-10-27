@@ -1,7 +1,7 @@
 package com.example.Logger.application.Controller;
 
 import com.example.Logger.application.Model.Logger;
-import com.example.Logger.application.Model.logType;
+import com.example.Logger.application.Model.LogType;
 import com.example.Logger.application.Repository.ClientRepository;
 import com.example.Logger.application.Repository.LoggerRepository;
 import com.example.Logger.application.Services.ClientService;
@@ -39,9 +39,9 @@ public class LoggerController {
     @PostMapping("/api/logs/create")
     public ResponseEntity<Void> createLog(@RequestHeader("clientId") UUID id, @RequestBody Logger logger){
 
-        if(logger.getLogType().getValue() != logType.ERROR.getValue() &&
-                logger.getLogType().getValue() != logType.WARNING.getValue() &&
-                logger.getLogType().getValue() != logType.INFO.getValue()){
+        if(logger.getLogType().getValue() != LogType.ERROR.getValue() &&
+                logger.getLogType().getValue() != LogType.WARNING.getValue() &&
+                logger.getLogType().getValue() != LogType.INFO.getValue()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } else if(logger.getMessage().length() > 1024){
             return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(null);
@@ -54,19 +54,23 @@ public class LoggerController {
     }
 
     @GetMapping("/api/logs/search")
-    public ResponseEntity<List> searchLogs(@RequestHeader("clientId") UUID id,
+    public ResponseEntity<?> searchLogs(@RequestHeader("clientId") UUID id,
                                                    @RequestParam(value = "dateFrom", required = false) String dateFrom,
                                                    @RequestParam(value = "dateTo", required = false) String dateTo,
-                                                   @RequestParam(value = "logType", required = false) logType logType,
-                                                   @RequestBody Logger logger){
-        if(dateFrom == null && dateTo == null && logger.getLogType().getValue() != com.example.Logger.application.Model.logType.ERROR.getValue() &&
-                        logger.getLogType().getValue() != com.example.Logger.application.Model.logType.WARNING.getValue() &&
-                        logger.getLogType().getValue() != com.example.Logger.application.Model.logType.INFO.getValue()){
+                                                   @RequestParam(value = "logType", required = false) Integer logType){
+//                                                   @RequestBody Logger logger){
+        if(dateFrom == null && dateTo == null && logType != LogType.ERROR.getValue() &&
+                logType != LogType.WARNING.getValue() &&
+                logType != LogType.INFO.getValue()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } else if (clientRepository.findId(id) == 0) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-//        ;
+
         return ResponseEntity.status(HttpStatus.OK).body(loggerRepository.findLogsFromTo(dateFrom, dateTo, logType));
     }
+
+//    if(dateFrom == null && dateTo == null && logger.getLogType().getValue() != LogType.ERROR.getValue() &&
+//            logger.getLogType().getValue() != LogType.WARNING.getValue() &&
+//            logger.getLogType().getValue() != LogType.INFO.getValue()){
 }

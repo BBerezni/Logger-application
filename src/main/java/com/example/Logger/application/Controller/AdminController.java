@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -75,12 +74,12 @@ public class AdminController {
     }
 
     @GetMapping("/api/clients")
-    public ResponseEntity<List<Object>> getAllClents(@RequestHeader("adminId") UUID idAdmin, Client client){
+    public ResponseEntity<?> getAllClients(@RequestHeader("adminId") UUID idAdmin){
         if(clientRepository.getAdmin(idAdmin) == 0){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         } else if (clientRepository.getAdmin(idAdmin) == 0){
             return ResponseEntity.status((HttpStatus.FORBIDDEN)).body((null));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(clientRepository.findAllClients());
+        return ResponseEntity.status(HttpStatus.OK).body(clientRepository.findAll());
     }
 }
