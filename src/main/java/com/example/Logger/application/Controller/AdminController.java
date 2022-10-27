@@ -59,19 +59,16 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
     @PatchMapping("/api/clients/{clientId}/reset-password")
-    public ResponseEntity<Void> changePassword(@RequestHeader("adminId") UUID idAdmin, @RequestBody Client client){
-        if(idAdmin.equals(client.getId()) && !client.getUserAuth().equals(UserAuth.ADMIN)){
+    public ResponseEntity<Void> changePassword(@RequestHeader("adminId") UUID idAdmin, @RequestBody Client client, @PathVariable(value = "clientId") UUID clientId){
+        if(idAdmin.equals(client.getId()) && clientRepository.findId(idAdmin) == 0){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-        } else if (!idAdmin.equals(client.getId()) && client.getUserAuth().equals(UserAuth.ADMIN)){
+        } else if (!idAdmin.equals(client.getId()) && clientRepository.findId(idAdmin) == 0){
             return ResponseEntity.status((HttpStatus.FORBIDDEN)).body((null));
+        } else if(clientRepository.findId(clientId) == 0){
+            return ResponseEntity.status((HttpStatus.NOT_FOUND)).body((null));
         }
-        client.getId();
-        client.setUserAuth(UserAuth.CLIENT);
-        client.getUsername();
-        client.getEmail();
         String psw = client.getPassword();
-        client.setPassword(psw);
-        clientRepository.save(client);
+        clientRepository.upradeClientPassword(clientId, psw);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 }

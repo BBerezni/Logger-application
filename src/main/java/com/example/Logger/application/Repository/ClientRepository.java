@@ -2,9 +2,11 @@ package com.example.Logger.application.Repository;
 
 import com.example.Logger.application.Model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +28,15 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
 
     @Query(value = "SELECT COUNT(*) FROM Users WHERE id=:id", nativeQuery = true)
     Integer findId(@Param("id") UUID id);
+
+    @Query(value = "SELECT * FROM Users WHERE id=:id", nativeQuery = true)
+    Integer getClient(@Param("id") UUID id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE Users SET password=:password WHERE id=:id", nativeQuery = true)
+    void upradeClientPassword(@Param("id") UUID id, @Param("password") String password);
+
     String findByUsername(String username);
     String findByPassword(String password);
     String findByEmail(String email);

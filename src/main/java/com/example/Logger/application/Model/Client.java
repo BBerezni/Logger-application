@@ -16,6 +16,7 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     public UUID id;
     @JsonProperty("username")
     public String username;
