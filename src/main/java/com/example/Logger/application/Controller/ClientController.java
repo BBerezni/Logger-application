@@ -54,8 +54,7 @@ public class ClientController {
         if(clientRepository.existsByEmail(client.getEmail()) == 0 && clientRepository.existsByPassword(client.getPassword()) == 0){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-//        String ids = clientRepository.findIdByEmail(client.getEmail());
-        String token = client.getUsername()+"token";
+        String token = String.valueOf(UUID.randomUUID());
         return ResponseEntity.status(HttpStatus.OK).body("token: " + token);
     }
 

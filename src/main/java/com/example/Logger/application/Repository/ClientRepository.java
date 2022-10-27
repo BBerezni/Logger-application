@@ -32,10 +32,19 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     @Query(value = "SELECT * FROM Users WHERE id=:id", nativeQuery = true)
     Integer getClient(@Param("id") UUID id);
 
+    @Query(value = "SELECT id,username,email,logCount FROM Users WHERE userAuth=0", nativeQuery = true)
+    List<Object> findAllClients();
+
+    @Query(value = "SELECT COUNT(*) FROM Users WHERE userAuth=1 AND id=:id", nativeQuery = true)
+    Integer getAdmin(@Param("id") UUID id);
+
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE Users SET password=:password WHERE id=:id", nativeQuery = true)
-    void upradeClientPassword(@Param("id") UUID id, @Param("password") String password);
+    void upgradeClientPassword(@Param("id") UUID id, @Param("password") String password);
+
+
 
     String findByUsername(String username);
     String findByPassword(String password);
@@ -44,4 +53,6 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     Optional<Client> findById(UUID uuid);
     @Query(value = "SELECT * FROM Users WHERE id=:id", nativeQuery = true)
     Client findClientById(@Param("id") UUID id);;
+
+
 }

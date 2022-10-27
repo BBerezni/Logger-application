@@ -52,4 +52,21 @@ public class LoggerController {
         loggerRepository.save(logger);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
+
+    @GetMapping("/api/logs/search")
+    public ResponseEntity<List> searchLogs(@RequestHeader("clientId") UUID id,
+                                                   @RequestParam(value = "dateFrom", required = false) String dateFrom,
+                                                   @RequestParam(value = "dateTo", required = false) String dateTo,
+                                                   @RequestParam(value = "logType", required = false) logType logType,
+                                                   @RequestBody Logger logger){
+        if(dateFrom == null && dateTo == null && logger.getLogType().getValue() != com.example.Logger.application.Model.logType.ERROR.getValue() &&
+                        logger.getLogType().getValue() != com.example.Logger.application.Model.logType.WARNING.getValue() &&
+                        logger.getLogType().getValue() != com.example.Logger.application.Model.logType.INFO.getValue()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } else if (clientRepository.findId(id) == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+//        ;
+        return ResponseEntity.status(HttpStatus.OK).body(loggerRepository.findLogsFromTo(dateFrom, dateTo, logType));
+    }
 }

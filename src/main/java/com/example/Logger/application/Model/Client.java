@@ -25,6 +25,7 @@ public class Client {
     @JsonProperty("email")
     public String email;
     private UserAuth userAuth;
+    private Integer logCount;
 
 
 }

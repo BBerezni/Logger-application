@@ -15,4 +15,9 @@ public class LoggerService {
     public List<Logger> findAll() {
         return loggerRepository.findAll();
     }
+//    public List<Logger> getLogsFromTo(String dateFrom, String dateTo, logType logType){
+//        return loggerRepository.getLogsFromTo(dateFrom, dateTo, logType);
+//    }
+
+
 }
