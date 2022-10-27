@@ -80,6 +80,6 @@ public class AdminController {
         } else if (clientRepository.getAdmin(idAdmin) == 0){
             return ResponseEntity.status((HttpStatus.FORBIDDEN)).body((null));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(clientRepository.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(clientRepository.findClients());
     }
 }
